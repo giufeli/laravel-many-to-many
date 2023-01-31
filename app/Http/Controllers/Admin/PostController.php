@@ -19,6 +19,7 @@ class PostController extends Controller
                 'string',
                 'max:100',
             ],
+            'category_id'   => 'required|integer|exists:categories,id',
             'title' => 'required|string|max:100|',
             'image' => 'string|max:100|',
             'content' => 'string',
@@ -48,7 +49,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $categories = Category::all('id', 'name');
+
+        return view('admin.posts.create', [
+            'categories'    => $categories,
+        ]);
     }
 
     /**
